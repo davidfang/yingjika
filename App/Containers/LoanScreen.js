@@ -9,55 +9,56 @@ import LoanActions from '../Redux/LoanRedux'
 // Styles
 import styles from './Styles/LoanScreenStyle'
 
-
 class LoanScreen extends React.PureComponent {
 
   /* ***********************************************************
-  * STEP 1
-  * This is an array of objects with the properties you desire
-  * Usually this should come from Redux mapStateToProps
-  *************************************************************/
+   * STEP 1
+   * This is an array of objects with the properties you desire
+   * Usually this should come from Redux mapStateToProps
+   *************************************************************/
   state = {
     loan: this.props.data,
-    tagStatus: 'ios-arrow-up',
-    typeStatus: 'ios-arrow-up'
+    tagStatus: false,
+    typeStatus: false
   }
+
   componentDidMount () {
-    let { checkId, tagId, checks, tags, data } = this.props
+    let {checkId, tagId, checks, tags, data} = this.props
     if (tags.length == 0) {
       this.props.getTags()
     }
     if (checks.length == 0) {
       this.props.getChecks()
     }
-    if (data.length == 0 ) {
+    if (data.length == 0) {
       this.props.getLoan(checkId, tagId)
     }
   }
-  changeStatus(name) {
-    //this.setState({[name]: this.state[name] == 'up' ? 'down' : 'up'})
-    if(this.state[name] == 'ios-arrow-down'){
-      this.setState({[name]: 'ios-arrow-up'})
-    }else{
-      this.setState({[name]: 'ios-arrow-down'})
-    }
 
+  changeStatus (name) {
+    if (!name) {
+      this.setState({'typeStatus': false, 'tagStatus': false})
+    } else {
+      let otherStatus = name != 'typeStatus' ? 'typeStatus' : 'tagStatus'
+      this.setState({[name]: !this.state[name], [otherStatus]: false})
+    }
   }
+
   /* ***********************************************************
-  * STEP 2
-  * `renderRow` function. How each cell/row should be rendered
-  * It's our best practice to place a single component here:
-  *
-  * e.g.
-    return <MyCustomCell title={item.title} description={item.description} />
-  *************************************************************/
+   * STEP 2
+   * `renderRow` function. How each cell/row should be rendered
+   * It's our best practice to place a single component here:
+   *
+   * e.g.
+   return <MyCustomCell title={item.title} description={item.description} />
+   *************************************************************/
 
   renderRow ({item}) {
     return (
       <View style={styles.row}>
         <View style={styles.cardHeader}>
           <View style={styles.cardHeaderLab}>
-            <Image style={{width: 60, height: 60, borderRadius:5, marginRight: 10}} source={{uri: item.logo}} />
+            <Image style={{width: 60, height: 60, borderRadius: 5, marginRight: 10}} source={{uri: item.logo}}/>
             <View style={styles.cardHeaderContent}>
               <Text style={styles.cardName}>{item.name}</Text>
               <View style={styles.tagLabGroup}>
@@ -69,7 +70,7 @@ class LoanScreen extends React.PureComponent {
               </View>
             </View>
           </View>
-          <View  style={styles.cardButton}>
+          <View style={styles.cardButton}>
             <Text style={styles.titleText}>立即申请</Text>
           </View>
         </View>
@@ -78,14 +79,14 @@ class LoanScreen extends React.PureComponent {
             <Text style={styles.label}>{item.interest}</Text>
             <Text style={styles.label2}>利率</Text>
           </View>
-          <View style={[styles.separator, {width: 1, height: 30}]} />
+          <View style={[styles.separator, {width: 1, height: 30}]}/>
           <View>
             <Text style={styles.label}>{item.auditTime}</Text>
             <Text style={styles.label2}>审批周期</Text>
           </View>
-          <View style={[styles.separator, {width: 1, height: 30}]} />
+          <View style={[styles.separator, {width: 1, height: 30}]}/>
           <View>
-            <Text style={[styles.label,{color:'#FFFC00'}]}>{item.maxmoney}</Text>
+            <Text style={[styles.label, {color: '#FFFC00'}]}>{item.maxmoney}</Text>
             <Text style={styles.label2}>最高金额</Text>
           </View>
 
@@ -93,34 +94,37 @@ class LoanScreen extends React.PureComponent {
       </View>
     )
   }
+
   arrow = (name) => {
-    if(this.state[name]) {
-      return <Icon name='ios-arrow-down' size={10} />
+    if (this.state[name]) {
+      return <Icon name='ios-arrow-down' size={10}/>
     } else {
-      return <Icon name='ios-arrow-up' size={10} />
+      return <Icon name='ios-arrow-up' size={10}/>
     }
   }
   /* ***********************************************************
-  * STEP 3
-  * Consider the configurations we've set below.  Customize them
-  * to your liking!  Each with some friendly advice.
-  *************************************************************/
+   * STEP 3
+   * Consider the configurations we've set below.  Customize them
+   * to your liking!  Each with some friendly advice.
+   *************************************************************/
   // Render a header?
   renderHeader = () =>
     <View>
       <View style={styles.sectionHeader}>
-        <TouchableOpacity style={styles.headerLabel}><Text style={styles.headerText}>全部</Text></TouchableOpacity>
-        <TouchableOpacity style={styles.headerLabel}><Text onPress={() => this.changeStatus('tagStatus')} style={styles.headerText}>金额区间 <Icon name={this.state.tagStatus} size={10} /></Text></TouchableOpacity>
-        <TouchableOpacity style={styles.headerLabel}><Text onPress={() => this.changeStatus('typeStatus')} style={styles.headerText}>类型 <Icon name={this.state.typeStatus} size={10} /></Text></TouchableOpacity>
+        <TouchableOpacity style={styles.headerLabel}><Text onPress={() => this.changeStatus()} style={styles.headerText}>全部</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.headerLabel}><Text onPress={() => this.changeStatus('tagStatus')}
+                                                           style={styles.headerText}>金额区间 {this.arrow('tagStatus')}</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.headerLabel}><Text onPress={() => this.changeStatus('typeStatus')}
+                                                           style={styles.headerText}>类型 {this.arrow('typeStatus')}</Text></TouchableOpacity>
       </View>
-      {this.state.tagStatus == 'ios-arrow-down' && <View style={styles.sectionHeaderBox}>
+      {this.state.tagStatus && <View style={styles.sectionHeaderBox}>
         <TouchableOpacity style={styles.headerButton}><Text style={styles.headerText}>aaaa</Text></TouchableOpacity>
         <TouchableOpacity style={styles.headerButton}><Text style={styles.headerText}>aaaa</Text></TouchableOpacity>
         <TouchableOpacity style={styles.headerButton}><Text style={styles.headerText}>aaaa</Text></TouchableOpacity>
         <TouchableOpacity style={styles.headerButton}><Text style={styles.headerText}>aaaa</Text></TouchableOpacity>
         <TouchableOpacity style={styles.headerButton}><Text style={styles.headerText}>aaaa</Text></TouchableOpacity>
       </View>}
-      {this.state.typeStatus == 'ios-arrow-down' && <View style={styles.sectionHeaderBox}>
+      {this.state.typeStatus && <View style={styles.sectionHeaderBox}>
         <TouchableOpacity style={styles.headerButton}><Text style={styles.headerText}>bbbb</Text></TouchableOpacity>
         <TouchableOpacity style={styles.headerButton}><Text style={styles.headerText}>bbbb</Text></TouchableOpacity>
         <TouchableOpacity style={styles.headerButton}><Text style={styles.headerText}>bbbb</Text></TouchableOpacity>
@@ -183,7 +187,7 @@ class LoanScreen extends React.PureComponent {
 }
 
 const mapStateToProps = (state) => {
-  const { loan: { checkId, tagId, checks, tags, data } } = state
+  const {loan: {checkId, tagId, checks, tags, data}} = state
   return {
     // ...redux state to props here
     checkId, tagId, checks, tags, data

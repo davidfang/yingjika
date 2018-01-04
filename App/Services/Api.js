@@ -46,6 +46,10 @@ const create = (baseURL = AppConfig.apiUrl) => {
   const changePassword = (newPassword) => api.post('api/account/change-password', newPassword, {headers: {'Content-Type': 'text/plain', 'Accept': 'application/json, text/plain, */*'}})
   // ignite-jhipster-api-method-needle
 
+  const getLoan = (checkId, tagId) => api.get('/product/tab-list', {checkid: checkId, tagid: tagId})
+  const getTags = (checkId, tagId) => api.get('/product/tag')
+  const getChecks = (checkId, tagId) => api.get('/product/tag')
+
   // ------
   // STEP 3
   // ------
@@ -68,7 +72,11 @@ const create = (baseURL = AppConfig.apiUrl) => {
     forgotPassword,
     getAccount,
     updateAccount,
-    changePassword
+    changePassword,
+
+    getLoan,
+    getTags,
+    getChecks
   }
 }
 

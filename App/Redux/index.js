@@ -13,7 +13,9 @@ export const reducers = combineReducers({
   login: require('./LoginRedux').reducer,
   register: require('./RegisterRedux').reducer,
   password: require('./PasswordRedux').reducer,
-  search: require('./SearchRedux').reducer
+  search: require('./SearchRedux').reducer,
+
+  loan: require('./LoanRedux').reducer
 })
 
 export default () => {

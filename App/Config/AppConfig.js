@@ -1,7 +1,8 @@
 // Simple React Native specific changes
+import Secrets from 'react-native-config'
 
 export default {
   // font scaling override - RN default is on
   allowTextFontScaling: true,
-  apiUrl: 'http://localhost:8080/'
+  apiUrl: Secrets.API_URL
 }

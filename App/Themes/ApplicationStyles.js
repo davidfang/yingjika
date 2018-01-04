@@ -9,7 +9,7 @@ const ApplicationStyles = {
   screen: {
     mainContainer: {
       flex: 1,
-      backgroundColor: Colors.transparent
+      backgroundColor: Colors.background
     },
     backgroundImage: {
       position: 'absolute',
@@ -20,8 +20,9 @@ const ApplicationStyles = {
     },
     container: {
       flex: 1,
-      paddingTop: Metrics.baseMargin,
-      backgroundColor: Colors.transparent
+      marginTop: Metrics.doubleBaseMargin,
+      //paddingTop: Metrics.baseMargin,
+      backgroundColor: Colors.silver
     },
     section: {
       margin: Metrics.section,
@@ -44,6 +45,11 @@ const ApplicationStyles = {
       ...Fonts.style.h2,
       fontSize: 14,
       color: Colors.text
+    },
+    separator: {
+      width: Metrics.screenWidth,
+      height: 7,
+      backgroundColor: Colors.cloud
     }
   },
   darkLabelContainer: {

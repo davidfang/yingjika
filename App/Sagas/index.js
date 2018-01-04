@@ -12,6 +12,8 @@ import { PasswordTypes } from '../Redux/PasswordRedux'
 import { AccountTypes } from '../Redux/AccountRedux'
 // ignite-jhipster-saga-redux-import-needle
 
+import { LoanTypes } from '../Redux/LoanRedux'
+
 /* ------------- Sagas ------------- */
 
 import { startup } from './StartupSagas'
@@ -20,6 +22,8 @@ import { register } from './RegisterSagas'
 import { forgotPassword, changePassword } from './PasswordSagas'
 import { getAccount, updateAccount } from './AccountSagas'
 // ignite-jhipster-saga-method-import-needle
+
+import { getTags, getChecks, getLoan } from './LoanSagas'
 
 /* ------------- API ------------- */
 
@@ -44,6 +48,10 @@ export default function * root () {
     // ignite-jhipster-saga-redux-connect-needle
 
     takeLatest(AccountTypes.ACCOUNT_REQUEST, getAccount, api),
-    takeLatest(AccountTypes.ACCOUNT_UPDATE_REQUEST, updateAccount, api)
+    takeLatest(AccountTypes.ACCOUNT_UPDATE_REQUEST, updateAccount, api),
+
+    takeLatest(LoanTypes.LOAN_REQUEST, getLoan, api),
+    takeLatest(LoanTypes.TAGS_REQUEST, getTags, api),
+    takeLatest(LoanTypes.CHECKS_REQUEST, getChecks, api)
   ])
 }

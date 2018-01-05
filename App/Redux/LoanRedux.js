@@ -5,13 +5,14 @@ import Immutable from 'seamless-immutable'
 const { Types, Creators } = createActions({
   loanRequest: ['checkId', 'tagId'],
   loanSuccess: ['data'],
-  loanFailure: null,
+  loanFailure: ['response'],
   tagsRequest: null,
   tagsSuccess: ['data'],
   tagsFailure: null,
-  checksRequest: ['checkId', 'tagId'],
+  checksRequest: null,
   checksSuccess: ['data'],
-  checksFailure: null
+  checksFailure: null,
+  debug: ['response']
 })
 
 export const LoanTypes = Types
@@ -49,8 +50,8 @@ export const loanSuccess = (state, action) => {
 }
 
 // Something went wrong somewhere.
-export const loanFailure = state =>
-  state.merge({ fetching: false, error: true, data: [] })
+export const loanFailure = (state, action) =>
+  state.merge({ fetching: false, error: true, data: [], response: action.response })
 
 // request the data from an api
 export const checkRequest = (state) =>
@@ -80,6 +81,7 @@ export const tagSuccess = (state, action) => {
 export const tagFailure = state =>
   state.merge({fetching: false, error: true, tags: []})
 
+export const debug = (state, response) => state.merge({response})
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -91,6 +93,7 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.CHECKS_FAILURE]: checkFailure,
   [Types.TAGS_REQUEST]: tagRequest,
   [Types.TAGS_SUCCESS]: tagSuccess,
-  [Types.TAGS_FAILURE]: tagFailure
+  [Types.TAGS_FAILURE]: tagFailure,
+  [Types.DEBUG]: debug
 
 })

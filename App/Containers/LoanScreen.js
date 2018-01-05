@@ -17,13 +17,20 @@ class LoanScreen extends React.PureComponent {
    * Usually this should come from Redux mapStateToProps
    *************************************************************/
   state = {
-    loan: this.props.data,
     tagStatus: false,
-    typeStatus: false
+    typeStatus: false,
+    checkId: 1,
+    tagId: 1
+  }
+
+  componentWillMount () {
+    let {checkId, tagId} = this.props
+    this.setState({checkId, tagId})
   }
 
   componentDidMount () {
-    let {checkId, tagId, checks, tags, data} = this.props
+    let {checks, tags, data} = this.props
+    let {checkId, tagId} = this.state
     if (tags.length == 0) {
       this.props.getTags()
     }
@@ -33,6 +40,11 @@ class LoanScreen extends React.PureComponent {
     if (data.length == 0) {
       this.props.getLoan(checkId, tagId)
     }
+  }
+
+  getLoan ({checkId, tagId}) {
+    this.props.getLoan(checkId, tagId)
+    this.setState({checkId, tagId})
   }
 
   changeStatus (name) {
@@ -111,25 +123,30 @@ class LoanScreen extends React.PureComponent {
   renderHeader = () =>
     <View>
       <View style={styles.sectionHeader}>
-        <TouchableOpacity style={styles.headerLabel}><Text onPress={() => this.changeStatus()} style={styles.headerText}>全部</Text></TouchableOpacity>
-        <TouchableOpacity style={styles.headerLabel}><Text onPress={() => this.changeStatus('tagStatus')}
-                                                           style={styles.headerText}>金额区间 {this.arrow('tagStatus')}</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.headerLabel}><Text onPress={() => this.changeStatus()}
+                                                           style={styles.headerText}>全部</Text></TouchableOpacity>
         <TouchableOpacity style={styles.headerLabel}><Text onPress={() => this.changeStatus('typeStatus')}
-                                                           style={styles.headerText}>类型 {this.arrow('typeStatus')}</Text></TouchableOpacity>
+                                                           style={styles.headerText}>金额区间 {this.arrow('typeStatus')}</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.headerLabel}><Text onPress={() => this.changeStatus('tagStatus')}
+                                                           style={styles.headerText}>类型 {this.arrow('tagStatus')}</Text></TouchableOpacity>
       </View>
       {this.state.tagStatus && <View style={styles.sectionHeaderBox}>
-        <TouchableOpacity style={styles.headerButton}><Text style={styles.headerText}>aaaa</Text></TouchableOpacity>
-        <TouchableOpacity style={styles.headerButton}><Text style={styles.headerText}>aaaa</Text></TouchableOpacity>
-        <TouchableOpacity style={styles.headerButton}><Text style={styles.headerText}>aaaa</Text></TouchableOpacity>
-        <TouchableOpacity style={styles.headerButton}><Text style={styles.headerText}>aaaa</Text></TouchableOpacity>
-        <TouchableOpacity style={styles.headerButton}><Text style={styles.headerText}>aaaa</Text></TouchableOpacity>
+        {
+          this.props.tags.map((tag) =>
+            <TouchableOpacity key={tag.id} onPress={() => this.getLoan({tagId: tag.id, checkId: this.state.checkId})}
+                              style={styles.headerButton}><Text
+              style={styles.headerText}>{tag.type}</Text></TouchableOpacity>
+          )
+        }
       </View>}
       {this.state.typeStatus && <View style={styles.sectionHeaderBox}>
-        <TouchableOpacity style={styles.headerButton}><Text style={styles.headerText}>bbbb</Text></TouchableOpacity>
-        <TouchableOpacity style={styles.headerButton}><Text style={styles.headerText}>bbbb</Text></TouchableOpacity>
-        <TouchableOpacity style={styles.headerButton}><Text style={styles.headerText}>bbbb</Text></TouchableOpacity>
-        <TouchableOpacity style={styles.headerButton}><Text style={styles.headerText}>bbbb</Text></TouchableOpacity>
-        <TouchableOpacity style={styles.headerButton}><Text style={styles.headerText}>bbbb</Text></TouchableOpacity>
+        {
+          this.props.checks.map((check) =>
+            <TouchableOpacity key={check.id} onPress={() => this.getLoan({tagId: this.state.tagId, checkId: check.id})}
+                              style={styles.headerButton}><Text
+              style={styles.headerText}>{check.type}</Text></TouchableOpacity>
+          )
+        }
       </View>}
     </View>
 
@@ -171,7 +188,8 @@ class LoanScreen extends React.PureComponent {
       <View style={styles.container}>
         <FlatList
           contentContainerStyle={styles.listContent}
-          data={this.state.loan}
+          data={this.props.data}
+          extraData={this.state}
           renderItem={this.renderRow}
           numColumns={1}
           keyExtractor={this.keyExtractor}

@@ -46,6 +46,9 @@ const ApplicationStyles = {
       fontSize: 14,
       color: Colors.text
     },
+    normal: {
+      ...Fonts.style.normal
+    },
     separator: {
       width: Metrics.screenWidth,
       height: 7,

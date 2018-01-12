@@ -3,16 +3,15 @@ import { ApplicationStyles, Metrics, Colors, Fonts } from '../../Themes'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
-  container: {
+  /*container: {
     flex: 1,
     backgroundColor: Colors.background
-  },
+  },*/
   sectionHeader: {
     flexDirection: 'row',
     justifyContent: 'center',
     width: Metrics.screenWidth,
     height: 30,
-    marginTop: Metrics.baseMargin,
     backgroundColor: Colors.silver
   },
   headerLabel: {
@@ -43,7 +42,7 @@ export default StyleSheet.create({
   },
   row: {
     flex: 1,
-    backgroundColor: Colors.cloud,
+    backgroundColor: Colors.background,
     marginVertical: Metrics.smallMargin,
     justifyContent: 'center',
     margin: 10,

@@ -44,7 +44,7 @@ class LoanScreen extends React.PureComponent {
 
   getLoan ({checkId, tagId}) {
     this.props.getLoan(checkId, tagId)
-    this.setState({checkId, tagId})
+    this.setState({checkId, tagId, 'typeStatus': false, 'tagStatus': false})
   }
 
   changeStatus (name) {

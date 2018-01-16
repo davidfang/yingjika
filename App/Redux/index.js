@@ -15,6 +15,7 @@ export const reducers = combineReducers({
   password: require('./PasswordRedux').reducer,
   search: require('./SearchRedux').reducer,
 
+  captchaCode: require('./CaptchaCodeRedux').reducer,
   loan: require('./LoanRedux').reducer
 })
 

@@ -2,12 +2,20 @@ import { createReducer, createActions } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
-const { Types, Creators } = createActions({
-  accountRequest: [],
+const {Types, Creators} = createActions({
+  accountRequest: ['access_token'],
   accountUpdateRequest: ['account'],
   accountSuccess: ['account'],
-  accountUpdateSuccess: [],
-  accountFailure: ['error']
+  accountUpdateSuccess: ['account'],
+  profileUpdateRequest: ['profile'],
+  profileUpdateSuccess: ['profile'],
+  profileUpdateFailure: ['error'],
+  accountFailure: ['error'],
+  uploadAvatarRequest: ['fileUrl', 'fileName'],
+  uploadAvatarSuccess: ['avatar'],
+  uploadAvatarFailure: ['error'],
+
+  accountLogout: null
 })
 
 export const AccountTypes = Types
@@ -16,43 +24,66 @@ export default Creators
 /* ------------- Initial State ------------- */
 
 export const INITIAL_STATE = Immutable({
-  account: null,
   error: null,
   fetching: false,
-  updating: false
+  updating: false,
+  id: null,
+  username: null,
+  mobile: null,
+  invitation_code: null,
+  avatar: null,
+  profile: null
 })
 
 /* ------------- Reducers ------------- */
 
 // we're attempting to account
-export const request = (state) => state.merge({ fetching: true })
+export const request = (state) => state.merge({fetching: true})
 
 // we're attempting to updating account settings
-export const updateRequest = (state) => state.merge({ updating: true })
+export const updateRequest = (state) => state.merge({updating: true})
+export const uploadAvatarRequest = (state) => state.merge({updating: true})
 
 // we've successfully logged in
 export const success = (state, data) => {
-  const { account } = data
-  return state.merge({ fetching: false, error: null, account })
+  const {account} = data
+  return state.merge({fetching: false, error: null, ...account})
 }
 // we've successfully updated the account
-export const updateSuccess = (state) => state.merge({ error: null, updating: false })
+export const profileUpdateSuccess = (state, data) => {
+  const {profile} = data
+  return state.merge({error: null, updating: false, profile})
+}
+// we've successfully updated the account
+export const updateSuccess = (state, data) => {
+  const {account} = data
+  return state.merge({error: null, updating: false, ...account})
+}
+export const uploadAvatarSuccess = (state, data) => {
+  const {avatar} = data
+  return state.merge({error: null, updating: false, avatar, avatarData: avatar})
+}
 
 // we've had a problem logging in
-export const failure = (state, { error }) => state.merge({ fetching: false, updating: false, account: null, error })
+export const failure = (state, {error}) => state.merge({...INITIAL_STATE, error})
+
+export const logout = (state) => INITIAL_STATE
 
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.ACCOUNT_REQUEST]: request,
   [Types.ACCOUNT_UPDATE_REQUEST]: updateRequest,
+  [Types.UPLOAD_AVATAR_REQUEST]: uploadAvatarRequest,
   [Types.ACCOUNT_SUCCESS]: success,
   [Types.ACCOUNT_UPDATE_SUCCESS]: updateSuccess,
-  [Types.ACCOUNT_FAILURE]: failure
+  [Types.PROFILE_UPDATE_REQUEST]: updateRequest,
+  [Types.UPLOAD_AVATAR_SUCCESS]: uploadAvatarSuccess,
+  [Types.PROFILE_UPDATE_SUCCESS]: profileUpdateSuccess,
+  [Types.PROFILE_UPDATE_FAILURE]: failure,
+  [Types.UPLOAD_AVATAR_FAILURE]: failure,
+  [Types.ACCOUNT_FAILURE]: failure,
+  [Types.ACCOUNT_LOGOUT]: logout
 })
 
 /* ------------- Selectors ------------- */
-// Is the current user logged in?
-export const isLoggedIn = accountState => accountState.account !== null
-
-export const getLogin = accountState => accountState.account !== null ? accountState.account.login : 'anonymousUser'

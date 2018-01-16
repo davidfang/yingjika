@@ -53,5 +53,5 @@ buck-out/
 */fastlane/screenshots
 coverage/
 # Misc
-#.env
+.env
 ios/Index/DataStore

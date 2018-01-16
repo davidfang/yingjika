@@ -10,6 +10,7 @@ import { LoginTypes } from '../Redux/LoginRedux'
 import { RegisterTypes } from '../Redux/RegisterRedux'
 import { PasswordTypes } from '../Redux/PasswordRedux'
 import { AccountTypes } from '../Redux/AccountRedux'
+import { CaptchaCodeTypes } from '../Redux/CaptchaCodeRedux'
 // ignite-jhipster-saga-redux-import-needle
 
 import { LoanTypes } from '../Redux/LoanRedux'
@@ -20,7 +21,8 @@ import { startup } from './StartupSagas'
 import { login, logout, loginLoad } from './LoginSagas'
 import { register } from './RegisterSagas'
 import { forgotPassword, changePassword } from './PasswordSagas'
-import { getAccount, updateAccount } from './AccountSagas'
+import { getAccount, updateAccount, updateProfile, uploadAvatar } from './AccountSagas'
+import { getCaptcha, getCode } from './CaptchaCodeSagas'
 // ignite-jhipster-saga-method-import-needle
 
 import { getTags, getChecks, getLoan } from './LoanSagas'
@@ -45,10 +47,15 @@ export default function * root () {
     takeLatest(RegisterTypes.REGISTER_REQUEST, register, api),
     takeLatest(PasswordTypes.FORGOT_PASSWORD_REQUEST, forgotPassword, api),
     takeLatest(PasswordTypes.CHANGE_PASSWORD_REQUEST, changePassword, api),
+
+    takeLatest(CaptchaCodeTypes.CAPTCHA_REQUEST, getCaptcha, api),
+    takeLatest(CaptchaCodeTypes.CODE_REQUEST, getCode, api),
     // ignite-jhipster-saga-redux-connect-needle
 
     takeLatest(AccountTypes.ACCOUNT_REQUEST, getAccount, api),
     takeLatest(AccountTypes.ACCOUNT_UPDATE_REQUEST, updateAccount, api),
+    takeLatest(AccountTypes.UPLOAD_AVATAR_REQUEST, uploadAvatar, api),
+    takeLatest(AccountTypes.PROFILE_UPDATE_REQUEST, updateProfile, api),
 
     takeLatest(LoanTypes.LOAN_REQUEST, getLoan, api),
     takeLatest(LoanTypes.TAGS_REQUEST, getTags, api),

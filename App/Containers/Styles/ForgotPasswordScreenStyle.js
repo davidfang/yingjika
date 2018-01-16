@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native'
-import { ApplicationStyles, Colors } from '../../Themes/'
+import { ApplicationStyles, Metrics, Colors } from '../../Themes/'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
   container: {
     flex: 1,
+    paddingTop: Metrics.navBarHeight + 20,
     padding: 20
   },
   buttonText: {

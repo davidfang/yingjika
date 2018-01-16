@@ -6,7 +6,7 @@ import { Colors } from '../Themes'
 import DrawerContent from '../Containers/DrawerContent'
 
 import { connect } from 'react-redux'
-import { isLoggedIn } from '../Redux/AccountRedux'
+import { isLoggedIn } from '../Redux/LoginRedux'
 
 // screens identified by the router
 import LaunchScreen from '../Containers/LaunchScreen'
@@ -32,31 +32,29 @@ import AccountScreen from '../Containers/AccountScreen'
 
 class NavigationMainRouter extends Component {
 
-
-
   render () {
     //const icons = {}
     if (Platform.OS === 'ios') {
       var icons = {
-        home:'ios-home',
+        home: 'ios-home',
         cash: 'ios-cash',
         card: 'ios-card',
         person: 'ios-person'
       }
     } else if (Platform.OS === 'android') {
       var icons = {
-        home:'md-home',
+        home: 'md-home',
         cash: 'md-cash',
         card: 'md-card',
         person: 'md-person'
       }
     }
-
     return (
       <Router>
 
         <Stack key='root'>
-          <Scene key='user' initial tabs={true} labelStyle={styles.tabLabel} tabBarStyle={styles.tabBar} inactiveTintColor={Colors.selectedColor} activeTintColor={Colors.fire}>
+          <Scene key='user' initial tabs={true} labelStyle={styles.tabLabel} tabBarStyle={styles.tabBar}
+                 inactiveTintColor={Colors.selectedColor} activeTintColor={Colors.fire}>
             <Scene initial key='main' component={MainScreen} title='首页' hideNavBar
                    icon={({tintColor}) => <Icon name={icons.home} size={30} color={tintColor}/> }
             />
@@ -66,14 +64,12 @@ class NavigationMainRouter extends Component {
             <Scene key='card' component={CardScreen} title='办卡' hideNavBar
                    icon={({tintColor}) => <Icon name={icons.card} size={30} color={tintColor}/> }
             />
-            <Stack key='user' title='我的'
+            <Stack key='myCenter' title='我的'
                    icon={({tintColor}) => <Icon name={icons.person} size={30} color={tintColor}/> }>
-              <Scene initial={this.props.loggedIn}  key='account' component={AccountScreen} title='我的' hideNavBar
-
-              />
-              <Scene key='launchScreen' component={LaunchScreen} title='Welcome'/>
-              <Scene initial={!this.props.loggedIn}  key='login' component={LoginScreen} title='Login' hideNavBar/>
-              <Scene key='register' component={RegisterScreen} title='Register' back/>
+              <Scene key='launchScreen' component={LaunchScreen} title='Welcome' hideNavBar/>
+              <Scene initial={this.props.loggedIn} key='login' component={LoginScreen} title='Login' hideNavBar/>
+              <Scene initial={!this.props.loggedIn} key='account' component={AccountScreen} hideNavBar />
+              <Scene key='register' component={RegisterScreen}  hideNavBar/>
               <Scene key='entities' component={EntitiesScreen} title='Entities' back/>
               <Scene key='settings' component={SettingsScreen} title='Settings' back/>
               <Scene key='changePassword' component={ChangePasswordScreen} title='Change Password' back/>
@@ -90,10 +86,9 @@ class NavigationMainRouter extends Component {
   }
 }
 
-
 const mapStateToProps = (state) => {
   return {
-    loggedIn: isLoggedIn(state.account)
+    loggedIn: state.login.authToken !== null //isLoggedIn(state.login)//
   }
 }
 

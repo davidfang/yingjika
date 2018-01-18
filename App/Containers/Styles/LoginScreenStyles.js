@@ -1,10 +1,13 @@
 import { StyleSheet } from 'react-native'
-import { Colors, Metrics } from '../../Themes'
+import { ApplicationStyles, Colors, Metrics } from '../../Themes'
 
 export default StyleSheet.create({
+  ...ApplicationStyles.screen,
   container: {
     paddingTop: 70,
-    backgroundColor: Colors.jhipsterBlue
+    marginTop: Metrics.doubleBaseMargin,
+    height: Metrics.screenHeight,
+    backgroundColor: Colors.background
   },
   form: {
     backgroundColor: Colors.snow,
@@ -20,11 +23,12 @@ export default StyleSheet.create({
   },
   rowLabel: {
     fontSize: 18,
-    color: Colors.charcoal
+    color: Colors.charcoal,
+    flex: 2
   },
   textInput: {
     marginLeft: Metrics.baseMargin,
-    flex: 1,
+    flex: 8,
     height: 40,
     color: Colors.coal,
     borderColor: Colors.steel,
@@ -56,7 +60,8 @@ export default StyleSheet.create({
   },
   topLogo: {
     alignSelf: 'center',
-    resizeMode: 'contain'
+    resizeMode: 'contain',
+    width: Metrics.screenWidth
   },
   buttonText: {
     fontSize: 18,
@@ -67,8 +72,7 @@ export default StyleSheet.create({
     height: 36,
     backgroundColor: Colors.jhipsterBlue,
     borderColor: Colors.jhipsterBlue,
-    borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: 15,
     marginBottom: 10,
     marginLeft: 20,
     marginRight: 20,
@@ -79,10 +83,5 @@ export default StyleSheet.create({
     marginTop: 20,
     marginLeft: 20,
     marginRight: 20
-  },
-  textWrap: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 10
   }
 })

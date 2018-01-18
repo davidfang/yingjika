@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Alert, Image, View, ScrollView, Text, TextInput, Button, TouchableOpacity, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
 import styles from './Styles/LoginScreenStyles'
-import { Images, Metrics } from '../Themes'
+import { Images, Colors } from '../Themes'
 import LoginActions from '../Redux/LoginRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 
@@ -21,13 +21,11 @@ class LoginScreen extends React.Component {
     super(props)
     this.state = {
       username: '',
-      password: '',
-      visibleHeight: Metrics.screenHeight,
-      topLogo: {width: Metrics.screenWidth}
+      password: ''
     }
     this.isAttempting = false
     if (props.logged) {
-      NavigationActions.account()
+      NavigationActions.myCenter()
     }
   }
 
@@ -70,9 +68,9 @@ class LoginScreen extends React.Component {
     const editable = !fetching
     const textInputStyle = editable ? styles.textInput : styles.textInputReadonly
     return (
-      <ScrollView contentContainerStyle={{justifyContent: 'center'}}
-                  style={[styles.container, {height: this.state.visibleHeight}]} keyboardShouldPersistTaps='always'>
-        <Image source={Images.logoLogin} style={[styles.topLogo, this.state.topLogo]}/>
+      <View contentContainerStyle={{justifyContent: 'center'}}
+                  style={styles.container} keyboardShouldPersistTaps='always'>
+        <Image source={Images.logoLogin} style={styles.topLogo}/>
         <View style={styles.form}>
           <View style={styles.row}>
             <Text style={styles.rowLabel}>用户名</Text>
@@ -108,23 +106,19 @@ class LoginScreen extends React.Component {
               onSubmitEditing={this.handlePressLogin}
               placeholder='密码'/>
           </View>
-
-          <TouchableHighlight style={styles.button} onPress={this.handlePressLogin} underlayColor='#99d9f4'>
+        </View>
+        <Text style={{textAlign:'right', padding:10, color: Colors.text}} onPress={() => NavigationActions.forgotPassword()}>忘记密码</Text>
+        <View style={styles.viewWrap}>
+          <TouchableHighlight style={styles.button} onPress={this.handlePressLogin} underlayColor={Colors.ember}>
             <Text style={styles.buttonText}>登录</Text>
           </TouchableHighlight>
-
-
-        </View>
-
-        <View style={styles.viewWrap}>
-          <View style={styles.textWrap}>
-            <Button bordered title='忘记密码' onPress={() => NavigationActions.forgotPassword()}>忘记密码?</Button>
-            <Button bordered title='注册新帐户' onPress={() => NavigationActions.register()}>注册新账户</Button>
-          </View>
+          <TouchableHighlight style={[styles.button, {backgroundColor: Colors.text}]} onPress={() => NavigationActions.register()} underlayColor={Colors.ember}>
+            <Text style={styles.buttonText}>注册</Text>
+          </TouchableHighlight>
         </View>
 
 
-      </ScrollView>
+      </View>
     )
   }
 

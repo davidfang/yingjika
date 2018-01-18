@@ -25,6 +25,7 @@ import MainScreen from '../Containers/MainScreen'
 import LoanScreen from '../Containers/LoanScreen'
 import CardScreen from '../Containers/CardScreen'
 import AccountScreen from '../Containers/AccountScreen'
+import MyCenter from '../Containers/MyCenter'
 
 /* **************************
  * Documentation: https://github.com/aksonov/react-native-router-flux
@@ -64,19 +65,21 @@ class NavigationMainRouter extends Component {
             <Scene key='card' component={CardScreen} title='办卡' hideNavBar
                    icon={({tintColor}) => <Icon name={icons.card} size={30} color={tintColor}/> }
             />
-            <Stack key='myCenter' title='我的'
-                   icon={({tintColor}) => <Icon name={icons.person} size={30} color={tintColor}/> }>
-              <Scene key='launchScreen' component={LaunchScreen} title='Welcome' hideNavBar/>
-              <Scene initial={this.props.loggedIn} key='login' component={LoginScreen} title='Login' hideNavBar/>
-              <Scene initial={!this.props.loggedIn} key='account' component={AccountScreen} hideNavBar />
-              <Scene key='register' component={RegisterScreen}  hideNavBar/>
-              <Scene key='entities' component={EntitiesScreen} title='Entities' back/>
-              <Scene key='settings' component={SettingsScreen} title='Settings' back/>
-              <Scene key='changePassword' component={ChangePasswordScreen} title='Change Password' back/>
-              <Scene key='forgotPassword' component={ForgotPasswordScreen} title='Forgot Password' back/>
-              <Scene key='chat' component={ChatScreen} title='Chat' back/>
-            </Stack>
+            <Scene key='uCenter' component={this.props.loggedIn ? MyCenter : LoginScreen} title='我的' hideNavBar
+                   icon={({tintColor}) => <Icon name={icons.person} size={30} color={tintColor}/> }
+            />
           </Scene>
+          <Scene key='launchScreen' component={LaunchScreen} title='Welcome' hideNavBar/>
+          <Scene key='login' component={LoginScreen} title='Login' hideNavBar/>
+          <Scene key='account' component={AccountScreen} hideNavBar />
+          <Scene key='myCenter' component={MyCenter} hideNavBar />
+          <Scene key='setting' component={SettingsScreen} title='设置'/>
+          <Scene key='register' component={RegisterScreen}  hideNavBar/>
+          <Scene key='entities' component={EntitiesScreen} title='Entities' back/>
+          <Scene key='settings' component={SettingsScreen} title='Settings' back/>
+          <Scene key='chat' component={ChatScreen} title='Chat' back/>
+          <Scene key='forgotPassword' component={ForgotPasswordScreen} title='Forgot Password'  back/>
+          <Scene key='changePassword' component={ChangePasswordScreen} title='Change Password' back/>
 
           {/* ignite-jhipster-navigation-needle */}
         </Stack>

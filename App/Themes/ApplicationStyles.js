@@ -53,6 +53,17 @@ const ApplicationStyles = {
       width: Metrics.screenWidth,
       height: 7,
       backgroundColor: Colors.cloud
+    },
+    button: {
+      height: 36,
+      backgroundColor: Colors.jhipsterBlue,
+      borderColor: Colors.jhipsterBlue,
+      borderRadius: 15,
+      marginBottom: 10,
+      marginLeft: 20,
+      marginRight: 20,
+      alignSelf: 'stretch',
+      justifyContent: 'center'
     }
   },
   darkLabelContainer: {

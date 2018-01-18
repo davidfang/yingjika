@@ -1,4 +1,4 @@
-import { takeLatest, all } from 'redux-saga/effects'
+import { takeLatest, all, takeEvery } from 'redux-saga/effects'
 import API from '../Services/Api'
 import FixtureAPI from '../Services/FixtureApi'
 import DebugConfig from '../Config/DebugConfig'
@@ -6,6 +6,7 @@ import DebugConfig from '../Config/DebugConfig'
 /* ------------- Types ------------- */
 
 import { StartupTypes } from '../Redux/StartupRedux'
+import { AppSetTypes } from '../Redux/AppSetRedux'
 import { LoginTypes } from '../Redux/LoginRedux'
 import { RegisterTypes } from '../Redux/RegisterRedux'
 import { PasswordTypes } from '../Redux/PasswordRedux'
@@ -18,6 +19,7 @@ import { LoanTypes } from '../Redux/LoanRedux'
 /* ------------- Sagas ------------- */
 
 import { startup } from './StartupSagas'
+import { getAppSet, getAppSetProvince } from './AppSetSagas'
 import { login, logout, loginLoad } from './LoginSagas'
 import { register } from './RegisterSagas'
 import { forgotPassword, changePassword } from './PasswordSagas'
@@ -39,7 +41,7 @@ export default function * root () {
   yield all([
     // some sagas only receive an action
     takeLatest(StartupTypes.STARTUP, startup),
-
+    takeEvery(AppSetTypes.PROVINCE_REQUEST, getAppSetProvince, api),
     // JHipster accounts
     takeLatest(LoginTypes.LOGIN_LOAD, loginLoad, api),
     takeLatest(LoginTypes.LOGIN_REQUEST, login, api),

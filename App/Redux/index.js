@@ -13,6 +13,7 @@ export const reducers = combineReducers({
   login: require('./LoginRedux').reducer,
   register: require('./RegisterRedux').reducer,
   password: require('./PasswordRedux').reducer,
+  appSet: require('./AppSetRedux').reducer,
   search: require('./SearchRedux').reducer,
 
   captchaCode: require('./CaptchaCodeRedux').reducer,

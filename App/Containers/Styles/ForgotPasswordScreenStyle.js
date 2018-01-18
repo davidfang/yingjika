@@ -5,7 +5,7 @@ export default StyleSheet.create({
   ...ApplicationStyles.screen,
   container: {
     flex: 1,
-    paddingTop: Metrics.navBarHeight + 20,
+    paddingTop: Metrics.navBarHeight,
     padding: 20
   },
   buttonText: {

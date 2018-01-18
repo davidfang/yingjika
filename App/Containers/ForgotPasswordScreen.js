@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alert, ScrollView, Text, KeyboardAvoidingView, TouchableHighlight } from 'react-native'
+import { Alert, ScrollView, View, Text, KeyboardAvoidingView, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 import PasswordActions from '../Redux/PasswordRedux'
@@ -114,7 +114,7 @@ class ForgotPasswordScreen extends React.Component {
   }
 
   render () {
-      const Mobile = t.refinement(t.Number, function (m) {
+      const Mobile = t.refinement(t.String, function (m) {
       let reg = /^1[3|4|5|7|8][0-9]{9}$/  //验证规则
       return reg.test(m) //true
     })
@@ -171,8 +171,7 @@ class ForgotPasswordScreen extends React.Component {
       }
     }
     return (
-      <ScrollView style={styles.container}>
-        <KeyboardAvoidingView behavior='position'>
+      <View style={styles.container}>
           <Form
             ref='form'
             type={state.formModel}
@@ -183,8 +182,7 @@ class ForgotPasswordScreen extends React.Component {
           <TouchableHighlight style={styles.button} onPress={this.submitForm} underlayColor='#99d9f4'>
             <Text style={styles.buttonText}>提交</Text>
           </TouchableHighlight>
-        </KeyboardAvoidingView>
-      </ScrollView>
+      </View>
     )
   }
 

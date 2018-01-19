@@ -69,17 +69,17 @@ class NavigationMainRouter extends Component {
                    icon={({tintColor}) => <Icon name={icons.person} size={30} color={tintColor}/> }
             />
           </Scene>
-          <Scene key='launchScreen' component={LaunchScreen} title='Welcome' hideNavBar/>
-          <Scene key='login' component={LoginScreen} title='Login' hideNavBar/>
-          <Scene key='account' component={AccountScreen} hideNavBar />
-          <Scene key='myCenter' component={MyCenter} hideNavBar />
+          <Scene key='launchScreen' component={LaunchScreen} title='欢迎' hideNavBar/>
+          <Scene key='login' component={LoginScreen} title='登录' hideNavBar/>
+          <Scene key='account' component={AccountScreen} title='用户中心' hideNavBar />
+          <Scene key='myCenter' component={MyCenter} title='我的' hideNavBar />
           <Scene key='setting' component={SettingsScreen} title='设置'/>
           <Scene key='register' component={RegisterScreen}  hideNavBar/>
           <Scene key='entities' component={EntitiesScreen} title='Entities' back/>
-          <Scene key='settings' component={SettingsScreen} title='Settings' back/>
+          <Scene key='settings' component={SettingsScreen} title='设置' back/>
           <Scene key='chat' component={ChatScreen} title='Chat' back/>
-          <Scene key='forgotPassword' component={ForgotPasswordScreen} title='Forgot Password'  back/>
-          <Scene key='changePassword' component={ChangePasswordScreen} title='Change Password' back/>
+          <Scene key='forgotPassword' component={ForgotPasswordScreen} title='找回密码'  back/>
+          <Scene key='changePassword' component={ChangePasswordScreen} title='修改密码' back/>
 
           {/* ignite-jhipster-navigation-needle */}
         </Stack>

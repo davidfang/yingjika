@@ -24,10 +24,18 @@ const colors = {
   fire: '#e73536',
   drawer: 'rgba(30, 30, 29, 0.95)',
   eggplant: '#251a34',
-  border: '#483F53',
+  //border: '#483F53',
   banner: '#5F3E63',
   text: '#E0D7E5',
-  selectedColor: '#ff6600'
+  selectedColor: '#ff6600',
+
+  label: '#000000',
+  input: '#000000',
+  //error: '#a94442',
+  help: '#999999',
+  border: '#cccccc',
+  disabled: '#777777',
+  disabledBackGround: '#eeeeee'
 }
 
 export default colors

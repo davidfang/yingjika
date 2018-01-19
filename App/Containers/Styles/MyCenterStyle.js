@@ -1,12 +1,13 @@
 import { StyleSheet } from 'react-native'
-import { Colors, Metrics } from '../../Themes/'
+import { ApplicationStyles, Colors, Metrics } from '../../Themes/'
 
 export default StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: Metrics.navBarHeight,
-    backgroundColor: Colors.steel
-  },
+  ...ApplicationStyles.screen,
+  // container: {
+  //   flex: 1,
+  //   marginTop: Metrics.navBarHeight,
+  //   backgroundColor: Colors.steel
+  // },
   intro: {
     width: Metrics.screenWidth,
     height: Metrics.screenWidth / 5,

@@ -16,11 +16,6 @@ import RoundedButton from '../Components/RoundedButton'
 import Avatar from '../Components/Avatar'
 import RowItem from '../Components/RowItem'
 
-import LoginScreen from '../Containers/LoginScreen'
-import RegisterScreen from '../Containers/RegisterScreen'
-import SettingsScreen from '../Containers/SettingsScreen'
-import ChangePasswordScreen from '../Containers/ChangePasswordScreen'
-import ForgotPasswordScreen from '../Containers/ForgotPasswordScreen'
 // Styles
 import styles from './Styles/MyCenterStyle'
 import { Metrics, Fonts, Colors } from '../Themes'

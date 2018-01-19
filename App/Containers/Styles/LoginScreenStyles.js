@@ -63,22 +63,6 @@ export default StyleSheet.create({
     resizeMode: 'contain',
     width: Metrics.screenWidth
   },
-  buttonText: {
-    fontSize: 18,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  button: {
-    height: 36,
-    backgroundColor: Colors.jhipsterBlue,
-    borderColor: Colors.jhipsterBlue,
-    borderRadius: 15,
-    marginBottom: 10,
-    marginLeft: 20,
-    marginRight: 20,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
-  },
   viewWrap: {
     marginTop: 20,
     marginLeft: 20,

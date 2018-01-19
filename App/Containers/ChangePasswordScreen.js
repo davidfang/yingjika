@@ -4,14 +4,16 @@ import { connect } from 'react-redux'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import PasswordActions from '../Redux/PasswordRedux'
 import t from 'tcomb-form-native'
+
 // Styles
 import styles from './Styles/ChangePasswordScreenStyle'
+import {FormStyles} from '../Themes'
 
 let Form = t.form.Form
-
 class ChangePasswordScreen extends React.Component {
   constructor (props) {
     super(props)
+
     this.state = {
       formModel: t.struct({
         password: t.String,
@@ -19,13 +21,16 @@ class ChangePasswordScreen extends React.Component {
       }),
       formValue: { password: null, confirmPassword: null },
       formOptions: {
+        stylesheet: FormStyles,
         fields: {
           password: {
+            label: '密码',
             secureTextEntry: true,
             returnKeyType: 'next',
             onSubmitEditing: () => this.refs.form.getComponent('confirmPassword').refs.input.focus()
           },
           confirmPassword: {
+            label: '重复密码',
             secureTextEntry: true,
             returnKeyType: 'done',
             onSubmitEditing: () => this.submitForm()
@@ -46,7 +51,7 @@ class ChangePasswordScreen extends React.Component {
     const value = this.refs.form.getValue()
     if (value) { // if validation fails, value will be null
       if (value.password !== value.confirmPassword) {
-        Alert.alert('Error', 'Passwords do not match', [{text: 'OK'}])
+        Alert.alert('注意', '密码修改失败', [{text: 'OK'}])
         return
       }
       this.props.changePassword(value.password)
@@ -57,12 +62,12 @@ class ChangePasswordScreen extends React.Component {
     // Did the changePassword attempt complete?
     if (!newProps.fetching) {
       if (newProps.error) {
-        Alert.alert('Error', newProps.error, [{text: 'OK'}])
+        Alert.alert('注意', newProps.error, [{text: 'OK'}])
       } else {
         this.setState({
           success: true
         })
-        Alert.alert('Success', 'Password changed', [{text: 'OK'}])
+        Alert.alert('成功', '密码修改成功', [{text: 'OK'}])
       }
     }
   }

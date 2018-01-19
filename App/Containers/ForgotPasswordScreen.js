@@ -7,6 +7,7 @@ import LoginActions from '../Redux/LoginRedux'
 import t from 'tcomb-form-native'
 // Styles
 import styles from './Styles/ForgotPasswordScreenStyle'
+import {FormStyles} from '../Themes'
 
 import { Captcha as Custom } from '../Components/CustomTcomb'
 import Captcha from './Captcha'
@@ -128,6 +129,7 @@ class ForgotPasswordScreen extends React.Component {
       }),
       formValue: this.state.formValue,
       formOptions: {
+        stylesheet: FormStyles,
         fields: {
           mobile: {
             label: '手机',

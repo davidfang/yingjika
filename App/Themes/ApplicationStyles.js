@@ -54,6 +54,11 @@ const ApplicationStyles = {
       height: 7,
       backgroundColor: Colors.cloud
     },
+    buttonText: {
+      fontSize: 18,
+      color: 'white',
+      alignSelf: 'center'
+    },
     button: {
       height: 36,
       backgroundColor: Colors.jhipsterBlue,

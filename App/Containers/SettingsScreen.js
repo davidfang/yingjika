@@ -11,6 +11,7 @@ import AppSetActions from '../Redux/AppSetRedux'
 import t from 'tcomb-form-native'
 // Styles
 import styles from './Styles/SettingsScreenStyle'
+import {FormStyles} from '../Themes'
 
 let Form = t.form.Form
 const Api = API.create()
@@ -124,6 +125,7 @@ class SettingsScreen extends React.Component {
       }),
       accountValue: this.state.accountValue,
       options: {
+        stylesheet: FormStyles,
         fields: {
           province: {
             label: '省',
